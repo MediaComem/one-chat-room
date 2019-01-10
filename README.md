@@ -33,7 +33,7 @@ one chat room where anyone can post messages.
 * Install dependencies
 
   ```
-  cd /path/to/application
+  cd /path/to/repo
   npm install
   ```
 * Set up environment variables for [configuration](#configuration) if needed.
