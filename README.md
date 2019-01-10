@@ -25,7 +25,7 @@ one chat room where anyone can post messages.
 * [Node.js](https://nodejs.org) 10.x
   * [Installation](https://nodejs.org/en/download/package-manager/)
 * [MongoDB](https://www.mongodb.com/) 3+
-  * [Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
+  * [Installation](https://docs.mongodb.com/manual/administration/install-community/)
 
 ### Setup
 
