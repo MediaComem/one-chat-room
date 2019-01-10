@@ -1,0 +1,26 @@
+{
+  "name": "one-chat-room",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env DEBUG=one-chat-room:* nodemon ./bin/www",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.4.2",
+    "morgan": "~1.9.0",
+    "pug": "2.0.0-beta11",
+    "socket.io": "^2.2.0",
+    "stylus": "0.54.5",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.9"
+  }
+}

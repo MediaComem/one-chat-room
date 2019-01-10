@@ -1,0 +1,4 @@
+h1 .badge-pill.badge-success,
+h1 .badge-pill.badge-danger {
+  cursor: pointer;
+}

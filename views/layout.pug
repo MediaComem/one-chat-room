@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title One Chat Room
+    if baseUrl
+      base(href=baseUrl)
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', integrity='sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS', crossorigin='anonymous')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js', integrity='sha256-7/yoZS3548fXSRXqc/xYzjsmuW3sFKzuvOCHd06Pmps=', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js', integrity='sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.18/chance.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/jdenticon@2.1.1', async)
+    script(src='https://cdn.jsdelivr.net/npm/vue@2.5.21')
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/app.js')
+    script(src='/javascripts/components/message-item.js')
