@@ -44,6 +44,7 @@ function created() {
   this.socket.on('reconnecting', this.onSocketReconnecting.bind(this));
   this.socket.on('disconnect', this.onSocketDisconnect.bind(this));
   this.socket.on('message:created', this.onMessageCreated.bind(this));
+  this.socket.on('message:removed', this.onMessageRemoved.bind(this));
   this.nowInterval = setInterval(() => this.now = new Date(), 1000);
 }
 
@@ -90,7 +91,12 @@ function onMessageCreated(message) {
 }
 
 function onMessageRemoved(message) {
-  this.messages = _.without(this.messages, message);
+  if (message && message.id) {
+    const messageToRemove = _.find(this.messages, _.pick(message ,'id'));
+    if (messageToRemove) {
+      this.messages = _.without(this.messages, messageToRemove);
+    }
+  }
 }
 
 async function onSocketConnect() {

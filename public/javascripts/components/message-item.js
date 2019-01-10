@@ -20,11 +20,12 @@ function identicon() {
 
 async function remove() {
 
-  const res = await fetch(`/api/messages/${this.message.id}`, {
+  const message = this.message;
+  const res = await fetch(`/api/messages/${message.id}`, {
     method: 'DELETE'
   });
 
   if (res.status === 204) {
-    this.$emit('deleted', this.message);
+    this.$emit('deleted', message);
   }
 }

@@ -36,6 +36,7 @@ router.get('/', route(async (req, res) => {
 // DELETE /api/messages/:id
 router.delete('/:id', loadMessageById, route(async (req, res) => {
   await req.message.remove();
+  req.app.get('io').emit('message:removed', req.message.toJSON());
   res.sendStatus(204);
 }));
 

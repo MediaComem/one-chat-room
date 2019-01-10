@@ -26,4 +26,4 @@ script#app-template(type='text/x-template')
         | characters long.
 
     .list-group.mt-3
-      message-item(:message='message', :now='now', @deleted='onMessageRemoved', v-for='message of messages')
+      message-item(v-for='message of messages', :message='message', :now='now', @deleted='onMessageRemoved')
