@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const uuid = require('uuid/v4');
 
 const config = require('../config');
+
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
   apiId: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   author: {
     type: String,
@@ -21,7 +23,7 @@ const messageSchema = new Schema({
     type: String,
     match: /[^\s]+/,
     minlength: 1,
-    maxlength: 250,
+    maxlength: config.maxMessageLength,
     required: true
   },
   createdAt: {

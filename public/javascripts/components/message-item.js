@@ -4,6 +4,9 @@ Vue.component('message-item', {
   computed: {
     humanCreatedAt,
     identicon
+  },
+  methods: {
+    remove
   }
 });
 
@@ -13,4 +16,15 @@ function humanCreatedAt() {
 
 function identicon() {
   return typeof jdenticon !== undefined ? jdenticon.toSvg(this.message.author, 80): '';
+}
+
+async function remove() {
+
+  const res = await fetch(`/api/messages/${this.message.id}`, {
+    method: 'DELETE'
+  });
+
+  if (res.status === 204) {
+    this.$emit('deleted', this.message);
+  }
 }

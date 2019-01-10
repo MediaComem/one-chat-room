@@ -16,6 +16,14 @@ script#app-template(type='text/x-template')
         .w-100.d-lg-none.mb-1
         .col-12.col-lg-2.col-xl-1
           button.btn.btn-primary.btn-block(type='submit', :disabled='hasErrors() || status !== "connected"') Submit
+      .alert.alert-warning.mt-2.mb-2(v-if='errors.author.blank') Name is required.
+      .alert.alert-warning.mt-2.mb-2(v-if='errors.author.tooShort || errors.author.tooLong') Name must be between 2 and 25 characters long.
+      .alert.alert-warning.mt-2.mb-2(v-if='errors.contents.tooLong')
+        | Message must be at most
+        = ' '
+        span= maxMessageLength
+        = ' '
+        | characters long.
 
     .list-group.mt-3
-      message-item(:message='message', :now='now', v-for='message of messages')
+      message-item(:message='message', :now='now', @deleted='onMessageRemoved', v-for='message of messages')

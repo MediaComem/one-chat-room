@@ -21,6 +21,7 @@ const app = new Vue({
     disconnect,
     hasErrors,
     onMessageCreated,
+    onMessageRemoved,
     onSocketConnect,
     onSocketDisconnect,
     onSocketReconnecting,
@@ -86,6 +87,10 @@ function mounted() {
 
 function onMessageCreated(message) {
   this.messages = [ message, ...this.messages ].slice(0, 100);
+}
+
+function onMessageRemoved(message) {
+  this.messages = _.without(this.messages, message);
 }
 
 async function onSocketConnect() {
