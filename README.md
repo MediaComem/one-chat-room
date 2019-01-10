@@ -1,6 +1,7 @@
 # One Chat Room
 
-A real-time demo application: one chat room where anyone can post messages.
+A real-time demo application written with [Node.js](https://nodejs.org/en/), [Vue](https://vuejs.org/) and [Socket.io](https://socket.io/):
+one chat room where anyone can post messages.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
