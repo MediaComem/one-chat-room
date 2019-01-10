@@ -3,7 +3,7 @@ Vue.component('message-item', {
   props: [ 'message', 'now' ],
   computed: {
     humanCreatedAt,
-    jdenticon
+    identicon
   }
 });
 
@@ -11,6 +11,6 @@ function humanCreatedAt() {
   return moment(this.message.createdAt).from(moment.max(moment(this.now), moment(this.message.createdAt)));
 }
 
-function jdenticon() {
-  return jdenticon.toSvg(this.message.author, 80);
+function identicon() {
+  return typeof jdenticon !== undefined ? jdenticon.toSvg(this.message.author, 80): '';
 }
