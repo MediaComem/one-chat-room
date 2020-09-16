@@ -42,7 +42,11 @@ app.use((err, req, res, next) => {
 });
 
 app.start = async () => {
-  await mongoose.connect(config.databaseUrl, { useNewUrlParser: true });
+  await mongoose.connect(config.databaseUrl, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 };
 
 module.exports = app;
