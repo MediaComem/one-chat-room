@@ -22,7 +22,7 @@ one chat room where anyone can post messages.
 
 ### Requirements
 
-* [Node.js](https://nodejs.org) 10.x
+* [Node.js](https://nodejs.org) 12+
   * [Installation](https://nodejs.org/en/download/package-manager/)
 * [MongoDB](https://www.mongodb.com/) 3+
   * [Installation](https://docs.mongodb.com/manual/administration/install-community/)
