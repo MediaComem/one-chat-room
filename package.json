@@ -1,6 +1,6 @@
 {
   "name": "one-chat-room",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "scripts": {
     "dev": "cross-env DEBUG=one-chat-room:* nodemon ./bin/www",
