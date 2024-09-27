@@ -15,12 +15,6 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      # https://github.com/marketplace/actions/mongodb-in-github-actions
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.11.0
-        with:
-          mongodb-version: 8.0
-
       # https://github.com/asdf-vm/actions#setup
       - name: Install asdf
         uses: asdf-vm/actions/setup@v3
