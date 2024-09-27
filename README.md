@@ -3,6 +3,10 @@
 A real-time demo application written with [Node.js](https://nodejs.org/en/), [Vue](https://vuejs.org/) and [Socket.io](https://socket.io/):
 one chat room where anyone can post messages.
 
+[![build](https://github.com/MediaComem/one-chat-room/actions/workflows/build.yml/badge.svg)](https://github.com/MediaComem/one-chat-room/actions/workflows/build.yml)
+[![publish](https://github.com/MediaComem/one-chat-room/actions/workflows/publish.yml/badge.svg)](https://github.com/MediaComem/one-chat-room/actions/workflows/publish.yml)
+[![license](https://img.shields.io/github/license/MediaComem/one-chat-room)](https://opensource.org/licenses/MIT)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
