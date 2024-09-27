@@ -2,28 +2,33 @@
   "name": "one-chat-room",
   "version": "1.0.2",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "cross-env DEBUG=one-chat-room:* nodemon ./bin/www",
+    "doctoc": "doctoc --github --notitle README.md && prettier --write README.md",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "chalk": "^4.1.0",
+    "chalk": "^5.3.0",
     "debug": "^4.3.1",
     "express": "^4.17.1",
-    "http-errors": "^1.8.0",
-    "lodash": "^4.17.20",
-    "mongoose": "^5.10.5",
+    "http-errors": "^2.0.0",
+    "mongoose": "^8.7.0",
     "morgan": "^1.10.0",
     "pug": "^3.0.0",
-    "socket.io": "^3.0.3",
-    "stylus": "^0.54.8",
-    "uuid": "^8.3.0"
+    "socket.io": "^4.8.0",
+    "stylus": "~0.63.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "nodemon": "^2.0.4"
+    "doctoc": "^2.2.1",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3"
   },
   "engines": {
-    "node": "^14.0.0"
+    "node": "^22.0.0"
   }
 }

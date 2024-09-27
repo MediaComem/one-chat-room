@@ -1,8 +1,8 @@
-const express = require('express');
-const createError = require('http-errors');
+import express from 'express';
+import createError from 'http-errors';
 
-const { version } = require('../../package.json');
-const messagesRouter = require('./messages');
+import { version } from '../../config.js';
+import messagesRouter from './messages.js';
 
 const router = express.Router();
 
@@ -17,7 +17,6 @@ router.use((req, res, next) => next(createError(404)));
 
 // Error handler
 router.use((err, req, res, next) => {
-
   const body = {
     message: getErrorMessage(err)
   };
@@ -32,7 +31,7 @@ router.use((err, req, res, next) => {
     .send(body);
 });
 
-module.exports = router;
+export default router;
 
 function getErrorMessage(err) {
   if (err.name === 'ValidationError') {

@@ -45,7 +45,7 @@ function created() {
   this.socket.on('disconnect', this.onSocketDisconnect.bind(this));
   this.socket.on('message:created', this.onMessageCreated.bind(this));
   this.socket.on('message:removed', this.onMessageRemoved.bind(this));
-  this.nowInterval = setInterval(() => this.now = new Date(), 1000);
+  this.nowInterval = setInterval(() => (this.now = new Date()), 1000);
 }
 
 function disconnect() {
@@ -53,7 +53,6 @@ function disconnect() {
 }
 
 function errors() {
-
   const errors = {
     author: {},
     contents: {}
@@ -79,7 +78,9 @@ function errors() {
 }
 
 function hasErrors(field) {
-  return field ? !_.isEmpty(this.errors[field]) : _.some(this.errors, (value, key) => !_.isEmpty(value));
+  return field
+    ? !_.isEmpty(this.errors[field])
+    : _.some(this.errors, (value, key) => !_.isEmpty(value));
 }
 
 function mounted() {
@@ -87,12 +88,12 @@ function mounted() {
 }
 
 function onMessageCreated(message) {
-  this.messages = [ message, ...this.messages ].slice(0, 100);
+  this.messages = [message, ...this.messages].slice(0, 100);
 }
 
 function onMessageRemoved(message) {
   if (message && message.id) {
-    const messageToRemove = _.find(this.messages, _.pick(message ,'id'));
+    const messageToRemove = _.find(this.messages, _.pick(message, 'id'));
     if (messageToRemove) {
       this.messages = _.without(this.messages, messageToRemove);
     }
@@ -100,7 +101,6 @@ function onMessageRemoved(message) {
 }
 
 async function onSocketConnect() {
-
   this.status = 'connected';
 
   // Fetch latest messages
@@ -110,7 +110,10 @@ async function onSocketConnect() {
   const newMessages = _.differenceBy(recentMessages, this.messages, _.property('id'));
 
   // Add new messages and sort from newest to oldest
-  this.messages = _.sortBy([ ...this.messages, ...newMessages ], message => -moment(message.createdAt).unix()).slice(0, 100);
+  this.messages = _.sortBy(
+    [...this.messages, ...newMessages],
+    message => -moment(message.createdAt).unix()
+  ).slice(0, 100);
 }
 
 function onSocketDisconnect() {
@@ -143,7 +146,6 @@ async function submitMessage(event) {
 }
 
 async function fetchJson(url, options = {}) {
-
   const defaultHeaders = {};
   if (options.body) {
     defaultHeaders['Content-Type'] = 'application/json';

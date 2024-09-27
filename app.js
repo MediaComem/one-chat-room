@@ -1,27 +1,27 @@
-const express = require('express');
-const createError = require('http-errors');
-const mongoose = require('mongoose');
-const logger = require('morgan');
-const path = require('path');
-const stylus = require('stylus');
+import express from 'express';
+import createError from 'http-errors';
+import mongoose from 'mongoose';
+import logger from 'morgan';
+import path from 'path';
+import stylus from 'stylus';
 
-const config = require('./config');
-const apiRouter = require('./routes/api');
-const indexRouter = require('./routes/index');
+import * as config from './config.js';
+import apiRouter from './routes/api/index.js';
+import indexRouter from './routes/index.js';
 
 mongoose.set('debug', true);
 
 const app = express();
 
 // View engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(config.root, 'views'));
 app.set('view engine', 'pug');
 
 // Middlewares
 app.use(logger('dev'));
 app.use(express.json());
-app.use(stylus.middleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(stylus.middleware(path.join(config.root, 'public')));
+app.use(express.static(path.join(config.root, 'public')));
 
 // Routes
 app.use('/api', apiRouter);
@@ -42,11 +42,7 @@ app.use((err, req, res, next) => {
 });
 
 app.start = async () => {
-  await mongoose.connect(config.databaseUrl, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+  await mongoose.connect(config.databaseUrl);
 };
 
-module.exports = app;
+export default app;

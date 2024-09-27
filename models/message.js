@@ -1,49 +1,55 @@
-const { omit } = require('lodash');
-const mongoose = require('mongoose');
-const { v4: uuid } = require('uuid');
+import mongoose from 'mongoose';
+import { v4 as uuid } from 'uuid';
 
-const config = require('../config');
+import * as config from '../config.js';
 
 const Schema = mongoose.Schema;
 
-const messageSchema = new Schema({
-  apiId: {
-    type: String,
-    required: true,
-    unique: true
+const messageSchema = new Schema(
+  {
+    apiId: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    author: {
+      type: String,
+      match: /[^\s]+/,
+      minlength: 2,
+      maxlength: 25,
+      required: true
+    },
+    contents: {
+      type: String,
+      match: /[^\s]+/,
+      minlength: 1,
+      maxlength: config.maxMessageLength,
+      required: true
+    },
+    createdAt: {
+      type: Date
+    },
+    updatedAt: {
+      type: Date
+    }
   },
-  author: {
-    type: String,
-    match: /[^\s]+/,
-    minlength: 2,
-    maxlength: 25,
-    required: true
-  },
-  contents: {
-    type: String,
-    match: /[^\s]+/,
-    minlength: 1,
-    maxlength: config.maxMessageLength,
-    required: true
-  },
-  createdAt: {
-    type: Date
-  },
-  updatedAt: {
-    type: Date
+  {
+    timestamps: true
   }
-}, {
-  timestamps: true
-});
+);
 
 messageSchema.pre('validate', setApiId);
 messageSchema.post('save', removeOldMessages);
 messageSchema.set('toJSON', { transform });
 
-module.exports = mongoose.model('Message', messageSchema);
+export default mongoose.model('Message', messageSchema);
 
 async function removeOldMessages() {
-  const firstOutdatedMessage = await this.constructor.findOne().sort('-createdAt').skip(config.maxMessages).exec();
+  const firstOutdatedMessage = await this.constructor
+    .findOne()
+    .sort('-createdAt')
+    .skip(config.maxMessages)
+    .exec();
   if (firstOutdatedMessage) {
     await this.constructor.remove({
       createdAt: {
@@ -61,9 +67,9 @@ function setApiId(next) {
   next();
 }
 
-function transform(doc, json, options) {
+function transform(doc, { _id, __v, apiId, ...rest }) {
   return {
-    ...omit(json, '_id', '__v', 'apiId'),
+    ...rest,
     id: doc.apiId
   };
 }

@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
 
-const { baseUrl, maxMessageLength } = require('../config');
+import { baseUrl, maxMessageLength } from '../config.js';
 
 const router = express.Router();
 
 // GET /
 router.get('/', (req, res) => res.render('index', { baseUrl, maxMessageLength }));
 
-module.exports = router;
+export default router;

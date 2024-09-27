@@ -1,5 +1,5 @@
 script#app-template(type='text/x-template')
-  .container.mb-5
+  .container.mt-5.mb-5
     h1.mt-3
       .badge.badge-pill.badge-warning.float-right(v-if='status === "connecting"') connecting
       .badge.badge-pill.badge-success.float-right(v-if='status === "connected"', @click='disconnect') connected

@@ -1,29 +1,43 @@
-const { isInteger } = require('lodash');
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 
-exports.baseUrl = process.env.BASE_URL || '';
-exports.databaseUrl = process.env.MONGODB_URI || process.env.DATABASE_URL || 'mongodb://localhost/one-chat-room';
-exports.maxMessageLength = getEnvInt('MAX_MESSAGE_LENGTH') || 500;
-exports.maxMessages = getEnvInt('MAX_MESSAGES') || 10000;
-exports.port = getEnvInt('PORT') || 3000;
+export const root = path.dirname(new URL(import.meta.url).pathname);
 
-if (exports.maxMessageLength <= 0) {
-  throw new Error(`Environment variable $MAX_MESSAGE_LENGTH must be an integer greater than or equal to 1, but its value is ${exports.maxMessageLength}`);
-} else if (exports.maxMessages <= 0) {
-  throw new Error(`Environment variable $MAX_MESSAGES must be an integer greater than or equal to 1, but its value is ${exports.maxMessages}`);
-} else if (exports.port < 0 || exports.port > 65535) {
-  throw new Error(`Environment variable $PORT must be a port number between 0 and 63535, but its value is ${exports.port}`);
+const pkg = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'));
+
+export const baseUrl = process.env.BASE_URL ?? '';
+export const databaseUrl =
+  process.env.MONGODB_URI ?? process.env.DATABASE_URL ?? 'mongodb://localhost/one-chat-room';
+export const maxMessageLength = getEnvInt('MAX_MESSAGE_LENGTH') ?? 500;
+export const maxMessages = getEnvInt('MAX_MESSAGES') ?? 10000;
+export const port = getEnvInt('PORT') ?? 3000;
+export const version = pkg.version;
+
+if (maxMessageLength <= 0) {
+  throw new Error(
+    `Environment variable $MAX_MESSAGE_LENGTH must be an integer greater than or equal to 1, but its value is ${maxMessageLength}`
+  );
+} else if (maxMessages <= 0) {
+  throw new Error(
+    `Environment variable $MAX_MESSAGES must be an integer greater than or equal to 1, but its value is ${maxMessages}`
+  );
+} else if (port < 0 || port > 65535) {
+  throw new Error(
+    `Environment variable $PORT must be a port number between 0 and 63535, but its value is ${port}`
+  );
 }
 
 function getEnvInt(name) {
-
   const value = process.env[name];
   if (value === undefined) {
     return;
   }
 
   const intValue = parseInt(value, 10);
-  if (!isInteger(intValue)) {
-    throw new Error(`Environment variable $${name} must be an integer, but its value is "${value}"`);
+  if (!Number.isInteger(intValue)) {
+    throw new Error(
+      `Environment variable $${name} must be an integer, but its value is "${value}"`
+    );
   }
 
   return intValue;

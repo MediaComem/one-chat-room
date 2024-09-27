@@ -1,30 +1,27 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk');
-const debug = require('debug')('one-chat-room:server');
-const http = require('http');
-const ioFactory = require('socket.io');
+import chalk from 'chalk';
+import debugFactory from 'debug';
+import http from 'http';
+import { Server as SocketIoServer } from 'socket.io';
 
-const app = require('../app');
-const config = require('../config');
+import app from '../app.js';
+import * as config from '../config.js';
 
-/**
- * Get port from environment and store in Express.
- */
+const debug = debugFactory('one-chat-room:server');
+
 app.set('port', config.port);
 
-// Create HTTP server
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
 
-const io = ioFactory(server);
+const io = new SocketIoServer(httpServer);
 app.set('io', io);
 
-Promise
-  .resolve()
+Promise.resolve()
   .then(app.start)
   .then(startServer)
-  .then(onListening)
-  .catch(handleError)
+  .then(onHttpServerListening)
+  .catch(onHttpServerError)
   .catch(err => {
     console.error(chalk.red(err.stack));
     process.exit(1);
@@ -35,16 +32,13 @@ Promise
  */
 function startServer() {
   return new Promise((resolve, reject) => {
-    server.listen(config.port);
-    server.on('error', reject);
-    server.on('listening', resolve);
+    httpServer.listen(config.port);
+    httpServer.on('error', reject);
+    httpServer.on('listening', resolve);
   });
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-function handleError(error) {
+function onHttpServerError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -60,9 +54,6 @@ function handleError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-function onListening() {
+function onHttpServerListening() {
   debug(`Listening on port ${config.port}`);
 }
