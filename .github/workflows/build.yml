@@ -37,3 +37,8 @@ jobs:
       - name: Analyze source code
         run: |
           npm run lint
+
+      - name: Ensure there are no uncommitted changes
+        run: |
+          git status --porcelain
+          test -z "$(git status --porcelain)"
