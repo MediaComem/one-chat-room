@@ -1,9 +1,10 @@
+/* eslint-disable no-invalid-this */
 import mongoose from 'mongoose';
 import { v4 as uuid } from 'uuid';
 
 import * as config from '../config.js';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const messageSchema = new Schema(
   {
@@ -14,14 +15,14 @@ const messageSchema = new Schema(
     },
     author: {
       type: String,
-      match: /[^\s]+/,
+      match: /\S+/u,
       minlength: 2,
       maxlength: 25,
       required: true
     },
     contents: {
       type: String,
-      match: /[^\s]+/,
+      match: /\S+/u,
       minlength: 1,
       maxlength: config.maxMessageLength,
       required: true

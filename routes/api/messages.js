@@ -5,9 +5,11 @@ import Message from '../../models/message.js';
 import { route } from '../utils.js';
 
 const loadMessageById = route(async (req, res, next) => {
+  // eslint-disable-next-line require-atomic-updates
   req.message = await Message.findOne({ apiId: req.params.id }).exec();
   if (!req.message) {
-    return next(createError(404));
+    next(createError(404));
+    return;
   }
 
   next();

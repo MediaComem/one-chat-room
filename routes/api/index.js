@@ -1,8 +1,8 @@
 import express from 'express';
 import createError from 'http-errors';
 
-import { version } from '../../config.js';
 import messagesRouter from './messages.js';
+import { version } from '../../config.js';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.use('/messages', messagesRouter);
 router.use((req, res, next) => next(createError(404)));
 
 // Error handler
-router.use((err, req, res, next) => {
+router.use((err, req, res, _next) => {
   const body = {
     message: getErrorMessage(err)
   };
@@ -38,9 +38,9 @@ function getErrorMessage(err) {
     return 'Data is invalid';
   } else if (err.expose) {
     return err.message;
-  } else {
-    return 'An unexpected error occurred';
   }
+
+  return 'An unexpected error occurred';
 }
 
 function getErrorStatus(err) {
@@ -48,7 +48,7 @@ function getErrorStatus(err) {
     return 422;
   } else if (err.status) {
     return err.status;
-  } else {
-    return 500;
   }
+
+  return 500;
 }

@@ -2,7 +2,7 @@ import express from 'express';
 import createError from 'http-errors';
 import mongoose from 'mongoose';
 import logger from 'morgan';
-import path from 'path';
+import path from 'node:path';
 import stylus from 'stylus';
 
 import * as config from './config.js';
@@ -12,6 +12,9 @@ import indexRouter from './routes/index.js';
 mongoose.set('debug', true);
 
 const app = express();
+
+// HTTP
+app.set('x-powered-by', false);
 
 // View engine setup
 app.set('views', path.join(config.root, 'views'));
@@ -31,7 +34,7 @@ app.use('/', indexRouter);
 app.use((req, res, next) => next(createError(404)));
 
 // Error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
