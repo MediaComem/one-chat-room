@@ -1,0 +1,32 @@
+name: one-chat-room
+
+services:
+  app:
+    build:
+      context: .
+    image: archidep/one-chat-room
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mongodb://db:27017/one-chat-room
+      - DEBUG=one-chat-room:*
+    init: true
+    networks:
+      - app
+      - db
+    ports:
+      - '${ONE_CHAT_ROOM_PORT:-3000}:3000'
+
+  db:
+    image: mongo:8.0.0
+    networks:
+      - db
+    volumes:
+      - db-data:/data/db
+
+networks:
+  app:
+  db:
+
+volumes:
+  db-data:
