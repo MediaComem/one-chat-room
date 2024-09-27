@@ -1,0 +1,45 @@
+name: build
+
+on:
+  push:
+    branches:
+      - '**/*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      # https://github.com/marketplace/actions/mongodb-in-github-actions
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.11.0
+        with:
+          mongodb-version: 8.0
+
+      # https://github.com/asdf-vm/actions#setup
+      - name: Install asdf
+        uses: asdf-vm/actions/setup@v3
+        with:
+          asdf_branch: v0.14.1
+
+      - name: Install Node.js with asdf
+        run: |
+          asdf plugin add nodejs
+          asdf install nodejs
+
+      - name: Install project dependencies
+        run: |
+          npm ci
+
+      - name: Check source code formatting
+        run: |
+          npm run format
+
+      - name: Analyze source code
+        run: |
+          npm run lint
